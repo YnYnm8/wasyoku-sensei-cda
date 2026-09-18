@@ -10,8 +10,12 @@ services:
     depends_on:
       database:
         condition: service_healthy
+      mongodb:
+        condition: service_healthy
     environment:
       DATABASE_URL: "mysql://${MYSQL_USER:-app}:${MYSQL_PASSWORD:-!ChangeMe!}@database:3306/${MYSQL_DATABASE:-app}?serverVersion=8.0"
+      MONGODB_URL: "mongodb://${MONGO_USER:-app}:${MONGO_PASSWORD:-!ChangeMe!}@mongodb:27017"
+      MONGODB_DB: "${MONGO_DATABASE:-wasyoku}"
       SERVER_NAME: ":80"
 
 ###> doctrine/doctrine-bundle ###
@@ -30,6 +34,23 @@ services:
     volumes:
       - database_data:/var/lib/mysql:rw
 ###< doctrine/doctrine-bundle ###
+
+###> doctrine/mongodb-odm-bundle ###
+  mongodb:
+    image: mongo:7
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER:-app}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD:-!ChangeMe!}
+      MONGO_INITDB_DATABASE: ${MONGO_DATABASE:-wasyoku}
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    volumes:
+      - mongodb_data:/data/db:rw
+###< doctrine/mongodb-odm-bundle ###
+
   phpmyadmin:
     image: phpmyadmin:latest
     environment:
@@ -45,3 +66,6 @@ volumes:
 ###> doctrine/doctrine-bundle ###
   database_data:
 ###< doctrine/doctrine-bundle ###
+###> doctrine/mongodb-odm-bundle ###
+  mongodb_data:
+###< doctrine/mongodb-odm-bundle ###

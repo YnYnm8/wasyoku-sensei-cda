@@ -13,6 +13,9 @@ RUN apt-get update && apt-get install -y \
     pdo_mysql \
     zip
 
+# MongoDB拡張機能をインストール
+RUN install-php-extensions mongodb
+
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /app

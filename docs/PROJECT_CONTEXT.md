@@ -11,6 +11,7 @@
 - DWWM の課題として作ったアプリを、**CDA（Concepteur Développeur d'Applications, RNCP37873）の課題として作り替えている**。
 - リポジトリ：`YnYnm8/wasyoku-sensei-cda`（作業ブランチ `dev`、Issue ごとにブランチを作り、Pull Request で `dev` にマージする）
 - 開発者：Meiko（CDA 版は1人で開発）
+- CDA の授業資料（原本）：非公開リポジトリ `YnYnm8/formation-cda` の `cours/`（目次は README.md）。このリポジトリには授業資料を入れない。
 
 ## 2. 主な機能と進み具合
 
@@ -116,5 +117,6 @@ scripts/           # DB バックアップ・復元
 ## 11. AI への作業依頼の仕方
 
 1. まずこのファイル、`docs/open-issues.md`、最新の `docs/devlog/` を読む。
+   授業の内容を確かめるときは、`formation-cda` の該当する章を読む（アクセスできる場合）。
 2. 記録は `.claude/skills/washoku-sensei-devlog/SKILL.md` のルールに従う（承認なしに書かない、理解の段階や判断の出どころを区別する）。
 3. `.env.local` などの秘密情報は共有しない・記録しない。

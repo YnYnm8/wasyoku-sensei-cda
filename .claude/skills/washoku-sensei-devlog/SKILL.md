@@ -14,6 +14,8 @@ Washoku Sensei は、DWWM の課題として作った Symfony / Doctrine / MySQL
 - **Claude Code**：リポジトリを実際に確認し、授業の内容がコードに入っているかを確かめ、記録を書く。
 - **ユーザー**：設計を決め、コードを書くか承認し、理解度を確認し、記録の更新を承認する。
 
+授業資料の原本は、非公開リポジトリ `YnYnm8/formation-cda` の `cours/` にある（モジュール／授業／章ごとの Markdown、目次は README.md）。このリポジトリは公開なので、授業資料の本文はコピーしない。学習記録では、出典として章のパス（例：`formation-cda/cours/25-symfony-avance/05-symfony-api-les-bases/`）を書く。
+
 どの道具も、ほかの道具の会話を自動では読めない。ChatGPT の授業メモは、ユーザーが貼り付けるか `docs/learning/inbox/` に置いたときだけ材料になる。
 
 ## 守るルール
@@ -89,7 +91,7 @@ ChatGPT の授業メモは、次の形で来ることを想定する（形が違
 
 ```markdown
 # 学習記録 YYYY-MM-DD：トピック
-- 出典：CDA の授業（ChatGPT で整理）
+- 出典：CDA の授業（ChatGPT で整理）／原本：formation-cda/cours/...（章のパス）
 - 関連する CDA の能力：CPn
 
 ## 要点

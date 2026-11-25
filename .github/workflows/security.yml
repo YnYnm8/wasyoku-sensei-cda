@@ -1,0 +1,31 @@
+name: Sécurité des dépendances
+
+on:
+  push:
+    branches: [dev, main]
+  pull_request:
+  schedule:
+    # Every Monday at 07:00 UTC: detects newly published vulnerabilities
+    # even when the code has not changed.
+    - cron: "0 7 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  composer-audit:
+    name: composer audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.4"
+          tools: composer
+
+      # Checks composer.lock against known security advisories,
+      # without installing the dependencies. Fails if a vulnerability is found.
+      - name: Vérifier les vulnérabilités connues
+        run: composer audit --locked --format=plain

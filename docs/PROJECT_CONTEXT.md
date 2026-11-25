@@ -87,7 +87,7 @@ scripts/           # DB バックアップ・復元
 
 主なエンティティ：User、Recipe、Ingredient、RecipeIngredient、Condiment、RecipeCondiment、CondimentSubstitute、CondimentSubstituteGroup、Media、Favorite、ShoppingList、RecipeShoppingList、ShoppingListSubstitute、AsianShop
 
-データの使い分け：アプリの主なデータは MySQL、閲覧履歴は MongoDB（理由は `docs/decisions/001-*.md`）。
+データの使い分け：アプリの主なデータは MySQL、閲覧履歴（アクティビティ履歴）は MongoDB（理由は `docs/decisions/001-*.md` と `002-*.md`）。
 
 ## 6. コーディング規約
 
@@ -99,7 +99,8 @@ scripts/           # DB バックアップ・復元
 
 | 番号 | 内容 | 状態 |
 |---|---|---|
-| [001](decisions/001-mongodb-pour-historique.md) | 閲覧履歴を MongoDB に保存する | 採用（授業の進み方によって見直す可能性あり） |
+| [001](decisions/001-mongodb-pour-historique.md) | 閲覧履歴を MongoDB に保存する | 置き換え済み（→ 002） |
+| [002](decisions/002-activitylog-pour-historique.md) | 閲覧履歴をアクティビティ履歴（ActivityLog）に置き換える（2段階） | 採用 |
 
 ## 8. DWWM 版からの変更
 

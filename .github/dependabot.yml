@@ -1,0 +1,32 @@
+# Automatic dependency updates (technology watch / veille).
+# Dependabot checks these ecosystems every week and opens pull requests.
+# Note: JavaScript loaded with AssetMapper/importmap is not covered by Dependabot.
+# Add an "npm" entry when React is installed with npm.
+version: 2
+updates:
+  # PHP libraries (composer.json / composer.lock)
+  - package-ecosystem: "composer"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    target-branch: "dev"
+    groups:
+      symfony:
+        patterns:
+          - "symfony/*"
+
+  # Docker base image (Dockerfile: FROM dunglas/frankenphp)
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    target-branch: "dev"
+
+  # Versions of the GitHub Actions used in .github/workflows/
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    target-branch: "dev"

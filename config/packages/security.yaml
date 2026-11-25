@@ -51,6 +51,7 @@ security:
         - { path: ^/condiment/\d+/substitute, roles: ROLE_ADMIN }
         - { path: ^/favorite, roles: ROLE_USER }
         - { path: ^/shopping-list, roles: ROLE_USER }
+        - { path: ^/api/history, roles: ROLE_USER }
        
 when@test:
     security:

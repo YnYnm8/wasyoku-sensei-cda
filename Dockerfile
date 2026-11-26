@@ -1,4 +1,6 @@
-FROM dunglas/frankenphp
+# Pin FrankenPHP major version 1 and PHP 8.4 (same as composer.json "php": ">=8.4").
+# The "latest" tag moved to PHP 8.6, which broke "composer install".
+FROM dunglas/frankenphp:1-php8.4
 
 # Symfonyアプリの実行に必要な、PHPの拡張機能や周辺ツールをインストール
 RUN apt-get update && apt-get install -y \

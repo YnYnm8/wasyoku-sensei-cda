@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4893145206e75c8fe9b93b268bc0688c",
+    "content-hash": "d7ae7928b3d57a67d64fe5a783eab2c1",
     "packages": [
         {
             "name": "composer/semver",
@@ -8148,16 +8148,16 @@
         },
         {
             "name": "symfonycasts/tailwind-bundle",
-            "version": "v0.14.0",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SymfonyCasts/tailwind-bundle.git",
-                "reference": "eb839e8afa3d7dc2220ae1a7a6b8d215ccf85f83"
+                "reference": "9b0afba9144e5f8fbffe01282c054e835bedd0a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SymfonyCasts/tailwind-bundle/zipball/eb839e8afa3d7dc2220ae1a7a6b8d215ccf85f83",
-                "reference": "eb839e8afa3d7dc2220ae1a7a6b8d215ccf85f83",
+                "url": "https://api.github.com/repos/SymfonyCasts/tailwind-bundle/zipball/9b0afba9144e5f8fbffe01282c054e835bedd0a0",
+                "reference": "9b0afba9144e5f8fbffe01282c054e835bedd0a0",
                 "shasum": ""
             },
             "require": {
@@ -8165,7 +8165,6 @@
                 "symfony/asset-mapper": "^6.4|^7.0|^8.0",
                 "symfony/cache": "^6.4|^7.0|^8.0",
                 "symfony/console": "^6.4|^7.0|^8.0",
-                "symfony/deprecation-contracts": "^2.2|^3.0",
                 "symfony/http-client": "^6.4|^7.0|^8.0",
                 "symfony/process": "^6.4|^7.0|^8.0"
             },
@@ -8199,7 +8198,7 @@
             ],
             "support": {
                 "issues": "https://github.com/SymfonyCasts/tailwind-bundle/issues",
-                "source": "https://github.com/SymfonyCasts/tailwind-bundle/tree/v0.14.0"
+                "source": "https://github.com/SymfonyCasts/tailwind-bundle/tree/v1.0.0"
             },
             "funding": [
                 {
@@ -8207,7 +8206,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2026-06-21T15:46:15+00:00"
+            "time": "2026-07-23T02:04:59+00:00"
         },
         {
             "name": "twig/extra-bundle",

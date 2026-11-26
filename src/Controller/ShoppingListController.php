@@ -81,11 +81,13 @@ final class ShoppingListController extends AbstractController
         // この ?? があることで、エラーの予防になる
         $checkedItems = $allData['checked_items'] ?? [];
         $memo = $allData['memo'] ?? '';
+        // ★追加：画面から送られてきた人数（レシピIDごと）を取り出す
+        $personCounts = $allData['person_count'] ?? [];
+
 
         // 以前は、ここに長い foreach を、直接書いていたが、
         // buildDisplayItems() という部品にまとめたので、それを呼び出すだけで済む
-        $displayItems = $this->buildDisplayItems($checkedItems, $recipeIngredientRepository, $recipeCondimentRepository);
-
+        $displayItems = $this->buildDisplayItems($checkedItems, $personCounts, $recipeIngredientRepository, $recipeCondimentRepository);
         return $this->render('shopping_list/confirm.html.twig', [
             'displayItems' => $displayItems,
             'memo' => $memo,
@@ -147,9 +149,10 @@ final class ShoppingListController extends AbstractController
     ): Response {
         $allData = $session->get('shopping_confirm_allData', []);
         $checkedItems = $allData['checked_items'] ?? [];
+        $personCounts = $allData['person_count'] ?? [];
 
         // confirmShow() と同じ部品を使って、材料・調味料を、レシピごとにグループ分けする
-        $displayItems = $this->buildDisplayItems($checkedItems, $recipeIngredientRepository, $recipeCondimentRepository);
+        $displayItems = $this->buildDisplayItems($checkedItems,$personCounts, $recipeIngredientRepository, $recipeCondimentRepository);
 
         $emailChoice = $request->request->get('email_choice');
 
@@ -206,6 +209,7 @@ final class ShoppingListController extends AbstractController
      */
     private function buildDisplayItems(
         array $checkedItems,
+        array $personCounts, 
         RecipeIngredientRepository $recipeIngredientRepository,
         RecipeCondimentRepository $recipeCondimentRepository
     ): array {
@@ -227,6 +231,11 @@ final class ShoppingListController extends AbstractController
                     $recipeId = $ri->getRecipe()->getId();
                     $recipeName = $ri->getRecipe()->getName();
 
+                    // ★追加：このレシピの人数を決める
+                    // ブラウザから届いた値は書き換えられることがあるので、1〜20 の整数にそろえる
+                    $count = (int) ($personCounts[$recipeId] ?? 1);
+                    $count = max(1, min($count, 20));
+
                     // このレシピIDが、まだ $displayItems に登場していなければ、先に「箱」を作っておく。「からあげ」という引き出し自体が、まだ無ければ
                     if (!isset($displayItems[$recipeId])) {
                         // その引き出し自体を、新しく作る（中には、レシピ名と、まだ空っぽの材料リストを入れる）
@@ -239,7 +248,7 @@ final class ShoppingListController extends AbstractController
                     // 「からあげ」の引き出しの中の、「材料リスト」という、さらに小さい引き出しに、今処理している1つの材料を、追加する
                     $displayItems[$recipeId]['items'][] = [
                         'name' => $ri->getIngredient()->getName(),
-                        'quantity' => $ri->getQuantity(),
+                        'quantity' => round($ri->getQuantity() * $count, 1),   // ★変更：人数を掛ける
                         'unit' => $ri->getUnit(),
                     ];
                 }
@@ -248,6 +257,10 @@ final class ShoppingListController extends AbstractController
                 if ($rc) {
                     $recipeId = $rc->getRecipe()->getId();
                     $recipeName = $rc->getRecipe()->getName();
+                    // ★追加：このレシピの人数を決める
+                    // ブラウザから届いた値は書き換えられることがあるので、1〜20 の整数にそろえる
+                    $count = (int) ($personCounts[$recipeId] ?? 1);
+                    $count = max(1, min($count, 20));
 
                     if (!isset($displayItems[$recipeId])) {
                         $displayItems[$recipeId] = [
@@ -256,10 +269,10 @@ final class ShoppingListController extends AbstractController
                         ];
                     }
 
-                    $displayItems[$recipeId]['items'][] = [
-                        'name' => $rc->getCondiment()->getName(),
-                        'quantity' => $rc->getQuantity(),
-                        'unit' => $rc->getUnit(),
+                     $displayItems[$recipeId]['items'][] = [
+                        'name' => $ri->getIngredient()->getName(),
+                        'quantity' => round($ri->getQuantity() * $count, 1),   // ★変更：人数を掛ける
+                        'unit' => $ri->getUnit(),
                     ];
                 }
             }

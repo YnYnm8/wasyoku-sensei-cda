@@ -28,7 +28,12 @@ document.addEventListener('DOMContentLoaded', function () {
             el.textContent = (base * count).toFixed(1);
         });
         personCount.textContent = count;
+         // ★追加：お気に入り登録フォームの、隠しの入力欄にも人数を入れる
+        const personCountInput = document.getElementById('person-count-input');
+        if (personCountInput) {
+            personCountInput.value = count;
     }
+}
 
     increaseBtn.addEventListener('click', function () {
         count++;
@@ -63,6 +68,8 @@ function initShoppingListPersonCounters() {
         // 同じレシピIDを持つ「−」ボタンと、人数表示欄を、IDから探す
         const decreaseBtn = document.getElementById('decrease-btn-' + recipeId);
         const personCountSpan = document.getElementById('person-count-' + recipeId);
+             // ★追加1-a：手順2で Twig に作った、隠しの入力欄を探す
+        const personCountInput = document.getElementById('person-count-input-' + recipeId);
 
         // 対応する要素が見つからなければ、何もしない（安全策）
         if (!decreaseBtn || !personCountSpan) {
@@ -75,6 +82,12 @@ function initShoppingListPersonCounters() {
 
         function updateThisRecipe() {
             personCountSpan.textContent = count;
+             // ★追加1-b：隠しの入力欄にも、同じ人数を入れる
+            // （これで「Valider ma liste」を押したとき、人数がサーバーに届く）
+            if (personCountInput) {
+                personCountInput.value = count;
+            }
+
 
             // 「このレシピIDに属する」材料・調味料の <li> だけを探して、分量を再計算する
             // 他のレシピの <li>（別の data-recipe-id を持つもの）には影響しない
@@ -98,5 +111,8 @@ function initShoppingListPersonCounters() {
                 updateThisRecipe();
             }
         });
+        // ★追加2：画面を開いた直後に、一度だけ計算する
+        // （お気に入りが「2人分」なら、最初から2人分の分量を表示するため）
+        updateThisRecipe();
     });
 }

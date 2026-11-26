@@ -34,6 +34,7 @@
                 <div class="flex items-center gap-3 bg-white rounded-2xl shadow p-3 my-4 w-fit">
                     <button id="decrease-btn-{{ recipe.id }}" type="button" data-recipe-id="{{ recipe.id }}" class="w-10 h-10 rounded-full border border-washoku-beige flex items-center justify-center">−</button>
                     <span id="person-count-{{ recipe.id }}" class="text-xl w-8 text-center">{{ favorite.person }}</span>
+                    <input type="hidden" name="person_count[{{ recipe.id }}]" id="person-count-input-{{ recipe.id }}" value="{{ favorite.person }}">
                     <button id="increase-btn-{{ recipe.id }}" type="button" data-recipe-id="{{ recipe.id }}" class="btn-icon-round">＋</button>
                 </div>
 
